@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:beta": "vite build --mode beta",
+    "build:release": "vite build --mode release",
     "preview": "vite preview",
     "commit": "cz",
     "commit:amend": "git commit --amend --no-edit",
@@ -15,6 +17,7 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "vue": "^3.2.37",
     "vue-router": "^4.0.13"
   },

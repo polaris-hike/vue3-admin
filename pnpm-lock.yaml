@@ -20,10 +20,12 @@ specifiers:
   typescript: ^4.6.4
   vite: ^3.0.7
   vue: ^3.2.37
+  vue-router: ^4.0.13
   vue-tsc: ^0.39.5
 
 dependencies:
   vue: 3.2.37
+  vue-router: 4.0.13_vue@3.2.37
 
 devDependencies:
   '@commitlint/cli': 17.0.3
@@ -596,6 +598,10 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.2.37
       '@vue/shared': 3.2.37
+
+  /@vue/devtools-api/6.2.1:
+    resolution: {integrity: sha512-OEgAMeQXvCoJ+1x8WyQuVZzFo0wcyCmUR3baRVLmKBo1LmYZWMlRiXlux5jd0fqVJu6PfDbOrZItVqUEzLobeQ==}
+    dev: false
 
   /@vue/reactivity-transform/3.2.37:
     resolution: {integrity: sha512-IWopkKEb+8qpu/1eMKVeXrK0NLw9HicGviJzhJDEyfxTR9e1WtpnnbYkJWurX6WwoFP0sz10xQg8yL8lgskAZg==}
@@ -3962,6 +3968,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-router/4.0.13_vue@3.2.37:
+    resolution: {integrity: sha512-LmXrC+BkDRLak+d5xTMgUYraT3Nj0H/vCbP+7usGvIl9Viqd1UP6AsP0i69pSbn9O0dXK/xCdp4yPw21HqV9Jw==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.2.1
+      vue: 3.2.37
+    dev: false
 
   /vue-tsc/0.39.5_typescript@4.7.4:
     resolution: {integrity: sha512-jhTsrKhZkafpIeN4Cbhr1K53hNfa/oesSrlh7hUaeHyCk55VhZT6oJkwJbtqN4MYkWZIwPrm3/xTwsELuf2ocg==}

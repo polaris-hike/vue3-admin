@@ -1,10 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div id="app">
-    <h1>Hello World</h1>
-    <p>This is my first Vue app.</p>
-  </div>
+  <router-view></router-view>
 </template>
 
 <style scoped>

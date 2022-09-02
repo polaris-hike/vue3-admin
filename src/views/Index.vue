@@ -1,9 +1,5 @@
-<template>Index</template>
+<template><el-button type="primary">主要按钮</el-button></template>
 
 <script lang="ts">
-export default {
-  setup() {
-    console.log(import.meta.env);
-  },
-};
+export default {};
 </script>

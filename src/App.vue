@@ -1,19 +1,134 @@
-<script setup lang="ts"></script>
-
 <template>
-  <router-view></router-view>
+  <div class="layout">
+    <el-container class="container">
+      <el-aside class="aside">
+        <!--系统名称+logo-->
+        <div class="head">
+          <div>
+            <img src="//s.weituibao.com/1582958061265/mlogo.png" alt="logo" />
+            <span>vue3 admin</span>
+          </div>
+        </div>
+        <!--一条为了美观的线条-->
+        <div class="line"></div>
+        <el-menu background-color="#222832" text-color="#fff" :router="true">
+          <!--一级栏目-->
+          <el-submenu index="1">
+            <template #title>
+              <span>Dashboard</span>
+            </template>
+            <!--二级栏目-->
+            <el-menu-item-group>
+              <el-menu-item index="/"
+                ><i class="el-icon-data-line" />首页</el-menu-item
+              >
+              <el-menu-item index="/add"
+                ><i class="el-icon-data-line" />添加商品</el-menu-item
+              >
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <!--右边内容布局-->
+      <el-container class="content">
+        <Header />
+        <div class="main">
+          <router-view />
+        </div>
+        <Footer />
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
+<script lang="ts">
+import Footer from '@/components/Footer.vue';
+import Header from '@/components/Header.vue';
+export default {
+  name: 'App',
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.layout {
+  min-height: 100vh;
+  background-color: #ffffff;
+  .container {
+    height: 100vh;
+    .aside {
+      width: 200px;
+      background-color: #222832;
+      .head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        > div {
+          display: flex;
+          align-items: center;
+        }
+        img {
+          width: 50px;
+          height: 50px;
+          margin-right: 10px;
+        }
+        span {
+          font-size: 20px;
+          color: #ffffff;
+        }
+      }
+      .line {
+        border-top: 1px solid hsla(0, 0%, 100%, 0.05);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      }
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      max-height: 100vh;
+      overflow: hidden;
+      .main {
+        height: calc(100vh - 100px);
+        overflow: auto;
+        padding: 10px;
+      }
+    }
+  }
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+</style>
+
+<style>
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.el-menu {
+  border-right: none !important;
+}
+.el-submenu {
+  border-top: 1px solid hsla(0, 0%, 100%, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.el-submenu:first-child {
+  border-top: none;
+}
+.el-submenu [class^='el-icon-'] {
+  vertical-align: -1px !important;
+}
+a {
+  color: #409eff;
+  text-decoration: none;
+}
+.el-pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+.el-popper__arrow {
+  display: none;
 }
 </style>

@@ -49,11 +49,10 @@
 </template>
 
 <script lang="ts">
-import axios from 'axios';
 import { ElMessage, FormInstance } from 'element-plus';
 import md5 from 'md5';
 import { reactive, ref, toRefs } from 'vue';
-import { login } from '@/api/service/login';
+import { userLogin } from '@/api/service/auth';
 import { localSet } from '@/utils';
 
 export default {
@@ -81,7 +80,7 @@ export default {
     const submitForm = async () => {
       loginForm.value?.validate(async (valid) => {
         if (valid) {
-          const result = await login(
+          const result = await userLogin(
             state.ruleForm.username || '',
             md5(state.ruleForm.password)
           );

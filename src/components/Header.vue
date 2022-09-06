@@ -3,17 +3,48 @@
     <div class="left">
       <span class="title">{{ name }}</span>
     </div>
-    <div class="right">右</div>
+    <div class="right">
+      <el-popover
+        placement="bottom"
+        :width="320"
+        trigger="click"
+        popper-class="popper-user-box"
+      >
+        <template #reference>
+          <div class="author">
+            <i class="icon el-icon-s-custom" />
+            {{ (userInfo && userInfo.nickName) || '' }}
+            <i class="el-icon-caret-bottom" />
+          </div>
+        </template>
+        <div class="nickname">
+          <p>登录名：{{ (userInfo && userInfo.loginUserName) || '' }}</p>
+          <p>昵称：{{ (userInfo && userInfo.nickName) || '' }}</p>
+          <el-tag size="small" effect="dark" class="logout" @click="logout"
+            >退出</el-tag
+          >
+        </div>
+      </el-popover>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { reactive, toRefs } from 'vue';
+import { ElMessage } from 'element-plus';
+import { onMounted, reactive, toRefs } from 'vue';
 import {
   RouteLocationNormalized,
   RouteRecordName,
   useRouter,
 } from 'vue-router';
+import { getProfile, userLogout } from '@/api/service/auth';
+import { localRemove } from '@/utils';
+
+interface IHeaderState {
+  name: string;
+  userInfo: any | null;
+}
+
 export default {
   name: 'Header',
   setup() {
@@ -22,17 +53,42 @@ export default {
       index: '首页',
       add: '添加商品',
     };
-    const state = reactive({
-      name: '首页',
+    const state = reactive<IHeaderState>({
+      name: 'dashboard',
+      userInfo: null, // 用户信息变量
     });
+    // 初始化执行方法
+    onMounted(() => {
+      const pathname = window.location.hash.split('/')[1] || '';
+      if (!['login'].includes(pathname)) {
+        getUserInfo();
+      }
+    });
+    // 获取用户信息
+    const getUserInfo = async () => {
+      const result = await getProfile();
+      if (result.resultCode === 200) {
+        state.userInfo = result.data;
+      } else {
+        ElMessage(result.message);
+      }
+    };
+    // 退出登录
+    const logout = async () => {
+      await userLogout();
+      localRemove('token');
+      router.push({ path: '/login' });
+    };
+
     router.afterEach((to: RouteLocationNormalized) => {
-      const { id } = to.query;
       if (to.name) {
         state.name = pathMap[to.name];
       }
     });
+
     return {
       ...toRefs(state),
+      logout,
     };
   },
 };
@@ -49,5 +105,32 @@ export default {
   .title {
     font-size: 20px;
   }
+  .right > div > .icon {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+  .author {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}
+</style>
+
+<style>
+.popper-user-box {
+  background: url('https://s.yezgea02.com/lingling-h5/static/account-banner-bg.png')
+    50% 50% no-repeat !important;
+  background-size: cover !important;
+  border-radius: 0 !important;
+}
+.popper-user-box .nickname {
+  position: relative;
+  color: #ffffff;
+}
+.popper-user-box .nickname .logout {
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
 }
 </style>

@@ -1,13 +1,15 @@
 import Axios from 'axios';
 import config from '@/config';
 import router from '@/router';
+import { localGet } from '@/utils';
 
 const commonRequest = Axios.create({
-  baseURL: config.commonServiceHost,
-  withCredentials: true,
   timeout: 8000,
+  headers: {
+    token: localGet('token') || '',
+  },
 });
-
+// commonRequest.defaults.headers['token'] = localGet('token') || '';
 commonRequest.interceptors.response.use((res) => {
   if (typeof res.data !== 'object') {
     return Promise.reject(res);
@@ -19,7 +21,7 @@ commonRequest.interceptors.response.use((res) => {
     return Promise.reject(res.data);
   }
 
-  return res.data.data;
+  return res;
 });
 
 export { commonRequest };

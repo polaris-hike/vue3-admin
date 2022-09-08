@@ -11,7 +11,13 @@
         </div>
         <!--一条为了美观的线条-->
         <div class="line"></div>
-        <el-menu background-color="#222832" text-color="#fff" :router="true">
+        <el-menu
+          background-color="#222832"
+          text-color="#fff"
+          :router="true"
+          :default-openeds="defaultOpen"
+          :default-active="currentPath"
+        >
           <!--一级栏目-->
           <el-sub-menu index="1">
             <template #title>
@@ -24,6 +30,25 @@
               >
               <el-menu-item index="/add"
                 ><i class="el-icon-data-line" />添加商品</el-menu-item
+              >
+            </el-menu-item-group>
+          </el-sub-menu>
+          <el-sub-menu index="2">
+            <template #title>
+              <span>首页配置</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/swiper"
+                ><i class="el-icon-picture" />轮播图配置</el-menu-item
+              >
+              <el-menu-item index="/hot"
+                ><i class="el-icon-star-on" />热销商品配置</el-menu-item
+              >
+              <el-menu-item index="/new"
+                ><i class="el-icon-sell" />新品上线配置</el-menu-item
+              >
+              <el-menu-item index="/recommend"
+                ><i class="el-icon-thumb" />为你推荐配置</el-menu-item
               >
             </el-menu-item-group>
           </el-sub-menu>
@@ -62,10 +87,13 @@ export default {
     const router = useRouter();
     const state = reactive({
       showMenu: true, // 是否需要显示菜单
+      defaultOpen: ['1', '2'],
+      currentPath: '/',
     });
     // 监听路由的变化
     router.beforeEach((to, from, next) => {
       state.showMenu = !noMenu.includes(to.path);
+      state.currentPath = to.path;
       if (to.path == '/login') {
         // 如果路径是 /login 则正常执行
         next();

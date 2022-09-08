@@ -16,3 +16,7 @@ export function localSet(key: string, value: any) {
 export function localRemove(key: string) {
   window.localStorage.removeItem(key);
 }
+
+// 单张图片上传
+export const uploadImgServer =
+  'http://backend-api-02.newbee.ltd/manage-api/v1/upload/file';

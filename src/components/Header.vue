@@ -40,9 +40,16 @@ import {
 import { getProfile, userLogout } from '@/api/service/auth';
 import { localRemove } from '@/utils';
 
+interface IUserInfo {
+  adminUserId: number;
+  locked: number;
+  loginUserName: string;
+  nickName: string;
+}
+
 interface IHeaderState {
   name: string;
-  userInfo: any | null;
+  userInfo: IUserInfo | null;
 }
 
 export default {
@@ -51,7 +58,12 @@ export default {
     const router = useRouter();
     const pathMap: Record<RouteRecordName, string> = {
       index: '首页',
+      login: '登录',
       add: '添加商品',
+      swiper: '轮播图配置',
+      hot: '热销商品配置',
+      new: '新品上线配置',
+      recommend: '为你推荐配置',
     };
     const state = reactive<IHeaderState>({
       name: 'dashboard',
